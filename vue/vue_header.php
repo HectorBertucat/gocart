@@ -15,10 +15,7 @@
 				case "stock":
 				?>
 					<span style="float:right;margin-right:20px" onclick="location.href='?controleur=deconnexion'" class="clickable color_details icon solid fa-power-off"></span>
-					<span class="icon solid fa-plus color_details clickable" onclick="location.href='?controleur=ajout_article_stock'"></span>
-
-					<span style="float:left;margin-left:20px" class="icon solid fa-download color_details clickable" onclick="location.href='?controleur=download_stock<?php if(isset($_POST['recherche'])){ ?>&recherche=<?php echo $_POST['recherche']; } if(isset($_GET['categorie'])){?>&categorie=<?php echo $_GET['categorie']; } ?>'"></span>
-
+					
 				<?php
 					break;
 

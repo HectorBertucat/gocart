@@ -36,9 +36,25 @@ class PdoGsb
 		return $r;
 	}
 
+	public function sel_cards()
+	{
+		$r = "SELECT card_number FROM user";
+		$r = PdoGsb::$monPdo->query($r);
+		$r = $r->fetchAll();
+		return $r;
+	}
+
 	public function sel_user($email)
 	{
 		$r = "SELECT * FROM user WHERE email='$email'";
+		$r = PdoGsb::$monPdo->query($r);
+		$r = $r->fetch();
+		return $r;
+	}
+
+	public function sel_client($card)
+	{
+		$r = "SELECT * FROM user WHERE card_number=$card";
 		$r = PdoGsb::$monPdo->query($r);
 		$r = $r->fetch();
 		return $r;

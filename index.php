@@ -8,7 +8,7 @@ switch (isset($_GET['controleur'])) {
         break;
 
     case false:
-        $controleur = "connexion";
+        $controleur = "connexion_client";
         break;
 }
 
@@ -17,6 +17,10 @@ switch ($controleur) {
     case "connexion":
         include "controleur/con_connexion.php";
         break;
+
+        case "connexion_client":
+            include "controleur/con_connexion_client.php";
+            break;
 
     case "deconnexion":
         session_destroy(); // Détruit la variable de session
