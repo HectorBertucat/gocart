@@ -3,26 +3,38 @@ require_once("include/pdo.php");
 $pdo = PdoGsb::getPdoGsb();
 
 if (isset($_POST['send'])) {
-    $er = 1;
 
-    $cards = $pdo->sel_cards();
-    foreach ($cards as $card) { //recherche de l'identifiant dans la base de données
+    switch ($_POST['card_number']) {
 
-        if ($card['card_number'] == $_POST['card_number']) {
-            $er = 0; // carte trouvée
-            $user = $pdo->sel_client($card['card_number']);
+        case -1 :
+            header("Location: ?controleur=connexion");
+            break;
+        
+            default :
+            $er = 1;
 
-                $_SESSION['email'] = $user['email'];
-                $_SESSION['name'] = $user['name'];
-                $_SESSION['forname'] = $user['forname'];
-                $_SESSION['card_number'] = $user['card_number'];
-                $_SESSION['id_user_type'] = $user['id_user_type'];
-                $_SESSION['id'] = $user['id'];
-                header("Location: ?controleur=stock");
-            } else {
-                $er = 1;
-        }
+            $cards = $pdo->sel_cards();
+            foreach ($cards as $card) { //recherche de l'identifiant dans la base de données
+        
+                if ($card['card_number'] == $_POST['card_number']) {
+                    $er = 0; // carte trouvée
+                    $user = $pdo->sel_client($card['card_number']);
+        
+                        $_SESSION['email'] = $user['email'];
+                        $_SESSION['name'] = $user['name'];
+                        $_SESSION['forname'] = $user['forname'];
+                        $_SESSION['card_number'] = $user['card_number'];
+                        $_SESSION['id_user_type'] = $user['id_user_type'];
+                        $_SESSION['id'] = $user['id'];
+                        header("Location: ?controleur=stock");
+
+                    } else {
+                        $er = 1;
+                }
+            }
     }
+
+
 }
 
 
