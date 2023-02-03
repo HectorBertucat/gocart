@@ -12,7 +12,6 @@ switch (isset($_GET['controleur'])) {
         break;
 }
 
-
 switch ($controleur) {
 
     case "connexion":
@@ -26,57 +25,9 @@ switch ($controleur) {
         include "controleur/con_deconnexion.php";
         break;
 
-    case "entree":
-        include "controleur/con_entree.php";
-        break;
-
-    case "del_categorie":
-        include "controleur/con_del_categorie.php";
-        break;
-
-    case "modifier_categorie":
-        include "controleur/con_modifier_categorie.php";
-        break;
-
-    case "parametres":
-        include "controleur/con_parametres.php";
-        break;
-
-    case "download_entree":
-        include "controleur/con_download_entree.php";
-        break;
-
-        case "download_sortie":
-            include "controleur/con_download_sortie.php";
-            break;
-
-        case "download_stock":
-            include "controleur/con_download_stock.php";
-            break;
-
-    case "categorie":
-        include "controleur/con_categorie.php";
-        break;
-
-    case "article":
-        include "controleur/con_article.php";
-        break;
-
-    case "sortie":
-        include "controleur/con_sortie.php";
-        break;
-
     case "stock":
         include "controleur/con_stock.php";
         break;
-
-    case "ajout_article":
-        include "controleur/con_ajout_article.php";
-        break;
-
-        case "ajout_article_stock":
-            include "controleur/con_ajout_article_stock.php";
-            break;
 
     default:
         include "controleur/con_erreur_controleur.php";

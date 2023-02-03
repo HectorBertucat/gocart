@@ -2,10 +2,10 @@
 
 class PdoGsb
 {
-	private static $serveur = 'mysql:host=localhost'; //vercifrkmsuser.mysql.db
-	private static $bdd = 'dbname=gocart'; //vercifrkmsuser
-	private static $user = 'root'; //vercifrkmsuser
-	private static $mdp = 'root'; //Narval3salo
+	private static $serveur = 'mysql:host=localhost';
+	private static $bdd = 'dbname=gocart';
+	private static $user = 'root';
+	private static $mdp = 'root';
 	private static $monPdo;
 	private static $monPdoGsb = null;
 
