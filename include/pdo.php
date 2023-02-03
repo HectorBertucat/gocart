@@ -1,0 +1,47 @@
+<?php
+
+class PdoGsb
+{
+	private static $serveur = 'mysql:host=localhost'; //vercifrkmsuser.mysql.db
+	private static $bdd = 'dbname=gocart'; //vercifrkmsuser
+	private static $user = 'root'; //vercifrkmsuser
+	private static $mdp = 'root'; //Narval3salo
+	private static $monPdo;
+	private static $monPdoGsb = null;
+
+	private function __construct()
+	{
+		PdoGsb::$monPdo = new PDO(PdoGsb::$serveur . ';' . PdoGsb::$bdd, PdoGsb::$user, PdoGsb::$mdp);
+		PdoGsb::$monPdo->query("SET CHARACTER SET utf8");
+	}
+	public function _destruct()
+	{
+		PdoGsb::$monPdo = null;
+	}
+
+	public  static function getPdoGsb()
+	{
+		if (PdoGsb::$monPdoGsb == null) {
+			PdoGsb::$monPdoGsb = new PdoGsb();
+		}
+		return PdoGsb::$monPdoGsb;
+	}
+
+
+	public function sel_emails()
+	{
+		$r = "SELECT email FROM user";
+		$r = PdoGsb::$monPdo->query($r);
+		$r = $r->fetchAll();
+		return $r;
+	}
+
+	public function sel_user($email)
+	{
+		$r = "SELECT * FROM user WHERE email='$email'";
+		$r = PdoGsb::$monPdo->query($r);
+		$r = $r->fetch();
+		return $r;
+	}
+
+}
