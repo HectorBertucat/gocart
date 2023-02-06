@@ -53,6 +53,15 @@
 
 }
 
+.half {
+width:49.5%;
+
+}
+
+.right {
+    float:right;
+}
+
 .recherche {
     margin-bottom: 20px;
     margin-top: 20px;

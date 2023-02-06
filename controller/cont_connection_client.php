@@ -26,7 +26,7 @@ if (isset($_POST['send'])) {
                         $_SESSION['card_number'] = $user['card_number'];
                         $_SESSION['id_user_type'] = $user['id_user_type'];
                         $_SESSION['id'] = $user['id'];
-                        header("Location: ?controller=stock");
+                        header("Location: ?controller=cart_screen");
 
                     } else {
                         $er = 1;

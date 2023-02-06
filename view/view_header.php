@@ -12,7 +12,9 @@
 				<?php
 					break;
 
-				case "stock":
+				case "cart_screen":
+				case "admin_dashboard":
+
 				?>
 					<span style="float:right;margin-right:20px" onclick="location.href='?controller=deconnexion'" class="clickable color_details icon solid fa-power-off"></span>
 					
