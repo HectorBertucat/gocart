@@ -23,9 +23,9 @@
 
                 <?php
 
-                include "vue/vue_header.php";
+                include "view/view_header.php";
 
-                include "vue/" . $vue;
+                include "view/" . $view;
                 ?>
             </div>
         </div>
@@ -35,7 +35,7 @@
     </div>
 </body>
 <?php
-include "vue/vue_script.php";
+include "view/view_script.php";
 ?>
 
 </html>

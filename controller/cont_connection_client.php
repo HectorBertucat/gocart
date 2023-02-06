@@ -7,7 +7,7 @@ if (isset($_POST['send'])) {
     switch ($_POST['card_number']) {
 
         case -1 :
-            header("Location: ?controleur=connexion");
+            header("Location: ?controller=connection");
             break;
         
             default :
@@ -26,7 +26,7 @@ if (isset($_POST['send'])) {
                         $_SESSION['card_number'] = $user['card_number'];
                         $_SESSION['id_user_type'] = $user['id_user_type'];
                         $_SESSION['id'] = $user['id'];
-                        header("Location: ?controleur=stock");
+                        header("Location: ?controller=stock");
 
                     } else {
                         $er = 1;
@@ -36,6 +36,5 @@ if (isset($_POST['send'])) {
 
 
 }
+$view = "view_connection_client.php";
 
-
-$vue = "vue_connexion_client.php";

@@ -20,7 +20,7 @@ if (isset($_POST['send'])) {
                 $_SESSION['card_number'] = $user['card_number'];
                 $_SESSION['id_user_type'] = $user['id_user_type'];
                 $_SESSION['id'] = $user['id'];
-                header("Location: ?controleur=stock");
+                header("Location: ?controller=admin_dashboard");
             } else {
                 $er = 1;
             }
@@ -28,4 +28,5 @@ if (isset($_POST['send'])) {
     }
 }
 
-$vue = "vue_connexion.php";
+
+$view = "view_connection.php";
