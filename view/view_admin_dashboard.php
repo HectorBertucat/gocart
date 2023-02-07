@@ -13,9 +13,12 @@ $_SESSION['id'];
 
 ?>
 
-
-
 </p></div>
+
+<div>
+<div class="bubble half"></div>
+<div class="bubble half right"></div>
+</div>
 <div>
 <div class="bubble right half"><p>test</p></div>
 <div class="bubble half"><p>test</p></div>
