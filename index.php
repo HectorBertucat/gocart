@@ -34,6 +34,10 @@ switch ($controller) {
         include "controller/cont_admin_dashboard.php";
         break;
 
+        case "cart_screen":
+            include "controller/cont_cart_screen.php";
+            break;
+
     default:
         include "controller/cont_error_controller.php";
         break;
