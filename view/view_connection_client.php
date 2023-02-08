@@ -6,7 +6,9 @@
         </p><?php }} ?>
         <div class="row gtr-uniform">
             <div class="col-12">
-                <input type="text" name="card_number" id="card_number" placeholder="N° de carte" required />
+                <input type="text" name="card_number" id="card_number" placeholder="N° de carte" required autofocus/>
+                <input type="text" name="id_cart" id="id_cart" value="1"/>
+
             </div>
         </div>
         <div style="display:none">
