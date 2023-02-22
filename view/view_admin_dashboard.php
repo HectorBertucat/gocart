@@ -15,12 +15,18 @@ $_SESSION['id'];
 
 </p></div>
 
-<div>
-<div class="bubble half"></div>
-<div class="bubble half right"></div>
-</div>
-<div>
-<div class="bubble right half"><p>test</p></div>
-<div class="bubble half"><p>test</p></div>
+<input id="datepicker" type="date">
 
+<div>
+<div class="bubble half right">
+    <div class="chart-container">
+        <canvas id="sells_day"></canvas>
+    </div>
+</div>
+
+<div class="bubble half">
+    <div class="chart-container">
+        <canvas id="sells_hour"></canvas>
+    </div>
+</div>
 </div>
