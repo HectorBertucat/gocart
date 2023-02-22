@@ -70,34 +70,70 @@ class PdoGsb
 
 	public function sel_items_basket($basket)
 	{
-		$r = "SELECT i.name, i.price, COUNT(id_item) as qte_item FROM `association_item_basket` aib
+		$r = "SELECT * FROM `association_item_basket` aib
 		INNER JOIN item i
 		ON i.id=aib.id_item
-		WHERE aib.id_basket = 2
-		GROUP BY aib.id_item";
+		WHERE aib.id_basket = $basket
+		ORDER BY aib.id DESC";
 		$r = PdoGsb::$monPdo->query($r);
 		$r = $r->fetchAll();
 		return $r;
 	}
 
-	public function ins_item_in_basket($item,$basket,$date)
+	public function ins_item_in_basket($item,$basket)
 	{
-		$req = "INSERT INTO association_item_basket values (NULL,?,?,?,NULL)";
+		$req = "INSERT INTO association_item_basket values (NULL,?,?,?)";
 		$rs = PdoGsb::$monPdo->prepare($req);
 		$rs->bindValue(1, $item);
 		$rs->bindValue(2, $basket);
-		$rs->bindValue(3, $date);
+		$rs->bindValue(3, 1);
 		$rs->execute();
 	}
 
-	public function upd_item_in_basket($id,$date)
+	public function upd_qte_item_in_basket($item,$basket,$way)
 	{
-		$req = "UPDATE association_item_basket SET withdraw_date=? WHERE id=?";
+		$req = "UPDATE association_item_basket SET quantity=quantity+? WHERE id_item=? AND id_basket=?";
 		$rs = PdoGsb::$monPdo->prepare($req);
-		$rs->bindValue(1, $date);
-		$rs->bindValue(2, $id);
+		$rs->bindValue(1, $way);
+		$rs->bindValue(2, $item);
+		$rs->bindValue(3, $basket);
+
 		$rs->execute();
 	}
+
+	public function upd_withdraw_date_item_in_basket($id)
+	{
+		$req = "UPDATE association_item_basket SET withdraw_date=NOW() WHERE id=?";
+		$rs = PdoGsb::$monPdo->prepare($req);
+		$rs->bindValue(1, $id);
+		$rs->execute();
+	}
+
+	public function sel_item($barcode)
+	{
+		$r = "SELECT * FROM item WHERE barcode='$barcode'";
+		$r = PdoGsb::$monPdo->query($r);
+		$r = $r->fetch();
+		return $r;
+	}
+
+	public function sel_item_basket($item, $basket)
+	{
+		$r = "SELECT * FROM association_item_basket WHERE id_item=$item AND id_basket=$basket";
+		$r = PdoGsb::$monPdo->query($r);
+		$r = $r->fetch();
+		return $r;
+	}
+
+	public function del_item_basket($item,$basket)
+	{
+		$req = "DELETE FROM association_item_basket WHERE id_item=? AND id_basket=?";
+		$rs = PdoGsb::$monPdo->prepare($req);
+		$rs->bindValue(1, $item);
+		$rs->bindValue(2, $basket);
+		$rs->execute();
+	}
+
 	
 
 
