@@ -18,4 +18,4 @@
             <input style="width:100%" type="submit" value="Se connecter" name="send" class="primary" />
         </div>
     </form>
-</div> 
+</div>

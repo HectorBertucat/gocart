@@ -60,6 +60,31 @@ class PdoGsb
 		return $r;
 	}
 
+	public function sel_items_sold_day($day)
+	{
+		// start is $day at 00:00:00
+		$start = date('Y-m-d H:i:s', strtotime($day));
+		// end is $day at 23:59:59
+		$end = date('Y-m-d H:i:s', strtotime($day . ' +1 day -1 second'));
+
+		$r = "SELECT HOUR(date) AS hour, SUM(amount) as amount FROM sale WHERE date BETWEEN '$start' AND '$end' GROUP BY HOUR(date)";
+		$r = PdoGsb::$monPdo->query($r);
+		$r = $r->fetchAll();
+		return $r;
+	}
+
+	public function sel_items_sold_week($day)
+	{
+		// start is the monday of the week of $day at 00:00:00
+		$start = date('Y-m-d H:i:s', strtotime($day . ' -' . date('w', strtotime($day)) . ' days'));
+		// end is the sunday of the week of $day at 23:59:59
+		$end = date('Y-m-d H:i:s', strtotime($day . ' +' . (6 - date('w', strtotime($day))) . ' days +1 day -1 second'));
+
+		$r = "SELECT WEEKDAY(date) AS day, SUM(amount) as amount FROM sale WHERE date BETWEEN '$start' AND '$end' GROUP BY WEEKDAY(date)";
+		$r = PdoGsb::$monPdo->query($r);
+		$r = $r->fetchAll();
+		return $r;
+	}
 	public function sel_basket($cart,$user)
 	{
 		$r = "SELECT * FROM basket WHERE id_cart=$cart AND id_user=$user ORDER BY id DESC LIMIT 1";
