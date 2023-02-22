@@ -58,6 +58,10 @@ width:49.5%;
 
 }
 
+.maxsize {
+    width:100%;
+}
+
 .right {
     float:right;
 }

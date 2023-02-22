@@ -12,7 +12,6 @@
 				<?php
 					break;
 
-				case "cart_screen":
 				case "admin_dashboard":
 
 				?>
