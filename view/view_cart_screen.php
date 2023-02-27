@@ -10,9 +10,9 @@
 <p>Total : <?php echo $total_amount?>€</p>
 
 </div>
-<a class="button maxsize" href="https://youtube.com" style="height:80px">Demande d'assistance</a>
-<a class="button maxsize" style="height:80px">Problème de scan</a>
-<a class="button primary maxsize" style="height:80px">Valider le paiement</a>
+<a class="button maxsize" onclick="location.href='?controller=assistance_request'" style="height:80px">Demande d'assistance</a>
+<a class="button primary maxsize" style="height:80px" onclick="location.href='?controller=basket_confirmation&amount=<?php echo $total_amount ?>&basket=<?php echo $basket[0]['id']?>'">Valider le paiement</a>
+<a class="button maxsize" onclick="location.href='?controller=cancel_basket'">Annuler le panier</a>
 
 </div>
 <div class="half" style="overflow:scroll;height:540px">

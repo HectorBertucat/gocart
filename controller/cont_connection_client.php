@@ -28,7 +28,7 @@ if (isset($_POST['send'])) {
                         $_SESSION['id'] = $user['id'];
                         $_SESSION['cart'] = $_POST['id_cart'];
 
-                        //$pdo->ins_basket($_SESSION['cart'], $_SESSION['id'], );
+                        $pdo->ins_basket($_SESSION['id'], $_SESSION['cart']);
 
                         header("Location: ?controller=cart_screen");
 

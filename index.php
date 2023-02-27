@@ -27,7 +27,7 @@ switch ($controller) {
         session_destroy(); // Détruit la variable de session
         unset($_SESSION);  // Supprime les valeurs en cours d'utilisation
         session_start();   // Crée une nouvelle variable de sessio vierge
-        include "controller/cont_deconnection.php";
+        include "controller/cont_disconnection.php";
         break;
 
     case "admin_dashboard":
@@ -37,6 +37,22 @@ switch ($controller) {
         case "cart_screen":
             include "controller/cont_cart_screen.php";
             break;
+
+            case "basket_confirmation":
+                include "controller/cont_basket_confirmation.php";
+                break;
+
+                case "payment":
+                    include "controller/cont_payment.php";
+                    break;
+
+            case "assistance_request":
+                include "controller/cont_assistance_request.php";
+                break;
+
+                case "cancel_basket":
+                    include "controller/cont_cancel_basket.php";
+                    break;
 
     default:
         include "controller/cont_error_controller.php";

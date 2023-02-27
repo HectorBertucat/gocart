@@ -51,7 +51,6 @@ class PdoGsb
 		$r = $r->fetch();
 		return $r;
 	}
-
 	public function sel_client($card)
 	{
 		$r = "SELECT * FROM user WHERE card_number=$card";
@@ -105,6 +104,73 @@ class PdoGsb
 		return $r;
 	}
 
+	public function ins_basket($user,$cart)
+	{
+		$req = "INSERT INTO basket values (NULL,?,?,NOW(),NULL,NULL)";
+		$rs = PdoGsb::$monPdo->prepare($req);
+		$rs->bindValue(1, $user);
+		$rs->bindValue(2, $cart);
+		$rs->execute();
+	}
+	
+	public function ins_support_request($user,$cart)
+	{
+		$req = "INSERT INTO support_request values (NULL,?,?,NOW(),NULL)";
+		$rs = PdoGsb::$monPdo->prepare($req);
+		$rs->bindValue(1, $user);
+		$rs->bindValue(2, $cart);
+		$rs->execute();
+	}
+
+	public function upd_support_request($last)
+	{
+		$req = "UPDATE support_request SET support_date = NOW() WHERE id = ?";
+		$rs = PdoGsb::$monPdo->prepare($req);
+		$rs->bindValue(1, $last);
+		$rs->execute();
+	}
+	public function upd_cancel_basket($last)
+	{
+		$req = "UPDATE basket SET canceling_date = NOW(), closing_date = NOW() WHERE id = ?";
+		$rs = PdoGsb::$monPdo->prepare($req);
+		$rs->bindValue(1, $last);
+		$rs->execute();
+	}
+
+	public function upd_sell_basket($last)
+	{
+		$req = "UPDATE basket SET closing_date = NOW() WHERE id = ?";
+		$rs = PdoGsb::$monPdo->prepare($req);
+		$rs->bindValue(1, $last);
+		$rs->execute();
+	}
+
+
+	public function sel_last_support_request($user, $cart)
+	{
+		$r = "SELECT * FROM support_request WHERE id_user=$user AND id_cart = $cart ORDER BY id DESC LIMIT 1";
+		$r = PdoGsb::$monPdo->query($r);
+		$r = $r->fetchAll();
+		return $r;
+	}
+
+	public function sel_last_basket($user, $cart)
+	{
+		$r = "SELECT * FROM basket WHERE id_user=$user AND id_cart = $cart ORDER BY id DESC LIMIT 1";
+		$r = PdoGsb::$monPdo->query($r);
+		$r = $r->fetchAll();
+		return $r;
+	}
+
+	
+	public function sel_last_sale($basket)
+	{
+		$r = "SELECT * FROM sale WHERE id_basket = $basket ORDER BY id DESC LIMIT 1";
+		$r = PdoGsb::$monPdo->query($r);
+		$r = $r->fetchAll();
+		return $r;
+	}
+
 	public function ins_item_in_basket($item,$basket)
 	{
 		$req = "INSERT INTO association_item_basket values (NULL,?,?,?)";
@@ -114,6 +180,16 @@ class PdoGsb
 		$rs->bindValue(3, 1);
 		$rs->execute();
 	}
+
+	public function ins_sale($basket,$amount)
+	{
+		$req = "INSERT INTO sale values (NULL,?,?,NOW())";
+		$rs = PdoGsb::$monPdo->prepare($req);
+		$rs->bindValue(1, $basket);
+		$rs->bindValue(2, $amount);
+		$rs->execute();
+	}
+
 
 	public function upd_qte_item_in_basket($item,$basket,$way)
 	{
