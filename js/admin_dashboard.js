@@ -36,15 +36,34 @@ var sellsDayOptions = {
   onClick: function(event, elements) {
     if (elements.length > 0) {
       const index = elements[0].index;
-      console.log(index);
+      // day = the monday of the selected date on the datepicker + the index of the selected bar
+      day = new Date($("#datepicker").val());
+      day.setDate(day.getDate() - day.getDay() + index + 1);
+      // format date to yyyy-mm-dd
+      day = day.getFullYear() + '-' + (day.getMonth() + 1 < 10 ? '0' + (day.getMonth() + 1) : day.getMonth() + 1) + '-' + (day.getDate() < 10 ? '0' + day.getDate() : day.getDate());
+      getItemsSoldDay(day);
+      $("#datepicker").val(day);
+
+      const selectedElement = elements[0];
+      const dataset = this.data.datasets[selectedElement.datasetIndex];
+      const backgroundColor = dataset.backgroundColor;
+      const selectedBackgroundColor = 'red';
+      backgroundColor[selectedElement.index] = "rgba(0,99,132,0.8)";
+      this.update();
     }
   }
 };
 
-// create charts
+function updateChart(chart, data) {
+  chart.data = data;
+  chart.update();
+}
+
+// ------------ creation of charts ------------
+
 sells_day = new Chart('sells_day', {
   type: 'bar',
-  options: chartOptions,
+  options: sellsDayOptions,
   data: null,
 });
 
@@ -125,11 +144,6 @@ function getItemsSoldWeek(day) {
     });
 }
 
-function updateChart(chart, data) {
-  chart.data = data;
-  chart.update();
-}
-
 // on element with id datepicker change, update charts
 $("#datepicker").change(function() {
     getItemsSoldDay($(this).val());
@@ -140,7 +154,10 @@ $(document).ready(function () {
   // get current date
   const today = new Date();
   // format date to yyyy-mm-dd
-  const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  const date = today.getFullYear() + '-' + (today.getMonth() + 1 < 10 ? '0' + (today.getMonth() + 1) : today.getMonth() + 1) + '-' + (today.getDate() < 10 ? '0' + today.getDate() : today.getDate());
+
+  // set input "#datepicker" to today's date
+  $("#datepicker").val(date);
 
   getItemsSoldDay(date);
   getItemsSoldWeek(date);

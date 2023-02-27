@@ -20,5 +20,7 @@ if(isset($_GET['chart'])) {
     // return the data as json
     echo json_encode($data);
 } else {
+    $article_type = $pdo->sel_article_type();
+    $carts = $pdo->sel_carts();
     $view = "view_admin_dashboard.php";
 }

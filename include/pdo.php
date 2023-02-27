@@ -60,27 +60,60 @@ class PdoGsb
 		return $r;
 	}
 
-	public function sel_items_sold_day($day)
+	public function sel_article_type()
+	{
+		$r = "SELECT id, name FROM item_type";
+		$r = PdoGsb::$monPdo->query($r);
+		$r = $r->fetchAll();
+		return $r;
+	}
+
+	public function sel_carts() {
+		$r = "SELECT * FROM cart";
+		$r = PdoGsb::$monPdo->query($r);
+		$r = $r->fetchAll();
+		return $r;
+	}
+
+	public function sel_items_sold_day($day, $article_type_id = 0, $cart_id = 0)
 	{
 		// start is $day at 00:00:00
 		$start = date('Y-m-d H:i:s', strtotime($day));
 		// end is $day at 23:59:59
 		$end = date('Y-m-d H:i:s', strtotime($day . ' +1 day -1 second'));
 
-		$r = "SELECT HOUR(date) AS hour, SUM(amount) as amount FROM sale WHERE date BETWEEN '$start' AND '$end' GROUP BY HOUR(date)";
+		$cart_filter = "";
+		if ($cart_id != 0) {
+			$cart_filter = " AND cart_id IN $cart_id";
+		}
+
+		if ($article_type_id != 0) {
+			$r1 = "SELECT HOUR(closing_date) AS hour, SUM(amount) as amount FROM sale s WHERE cancelling_date IS NULL JOIN (SELECT * FROM association_item_basket aib WHERE aib.withdraw_date IS NULL LEFT JOIN item i ON aib.id_item = i.id WHERE i.id_item_type IN $article_type_id) aib ON s.id = aib.id_sale WHERE date BETWEEN '$start' AND '$end'".$cart_filter." GROUP BY HOUR(date)";
+		}
+
+		$r = "SELECT HOUR(date) AS hour, SUM(amount) as amount FROM sale WHERE date BETWEEN '$start' AND '$end'".$cart_filter." GROUP BY HOUR(date)";
 		$r = PdoGsb::$monPdo->query($r);
 		$r = $r->fetchAll();
 		return $r;
 	}
 
-	public function sel_items_sold_week($day)
+	public function sel_items_sold_week($day, $article_type_id = 0, $cart_id = 0)
 	{
 		// start is the monday of the week of $day at 00:00:00
 		$start = date('Y-m-d H:i:s', strtotime($day . ' -' . date('w', strtotime($day)) . ' days'));
 		// end is the sunday of the week of $day at 23:59:59
 		$end = date('Y-m-d H:i:s', strtotime($day . ' +' . (6 - date('w', strtotime($day))) . ' days +1 day -1 second'));
 
-		$r = "SELECT WEEKDAY(date) AS day, SUM(amount) as amount FROM sale WHERE date BETWEEN '$start' AND '$end' GROUP BY WEEKDAY(date)";
+		$cart_filter = "";
+		if ($cart_id != 0) {
+			$cart_filter = " AND cart_id IN $cart_id";
+		}
+
+		if ($article_type_id != 0) {
+
+		}
+
+		$r = "SELECT WEEKDAY(date) AS day, SUM(amount) as amount FROM sale WHERE date BETWEEN '$start' AND '$end'".$cart_filter."GROUP BY WEEKDAY(date)";
 		$r = PdoGsb::$monPdo->query($r);
 		$r = $r->fetchAll();
 		return $r;

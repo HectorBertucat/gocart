@@ -17,6 +17,20 @@ $_SESSION['id'];
 
 <input id="datepicker" type="date">
 
+<select name="article_type" id="article_type">
+    <option value="0">Tous les articles</option>
+    <?php foreach($article_type as $type) { ?>
+        <option value="<?php echo $type['id'] ?>"><?php echo $type['name'] ?></option>
+    <?php } ?>
+</select>
+
+<select name="carts" id="carts">
+    <option value="0">Tous les chariots</option>
+    <?php foreach($carts as $cart) { ?>
+        <option value="<?php echo $cart['id'] ?>"> Chariot n°<?php echo $cart['id'] ?></option>
+    <?php } ?>
+</select>
+
 <div>
 <div class="bubble half right">
     <div class="chart-container">
