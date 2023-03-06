@@ -41,7 +41,7 @@ var sellsDayOptions = {
       day.setDate(day.getDate() - day.getDay() + index + 1);
       // format date to yyyy-mm-dd
       day = day.getFullYear() + '-' + (day.getMonth() + 1 < 10 ? '0' + (day.getMonth() + 1) : day.getMonth() + 1) + '-' + (day.getDate() < 10 ? '0' + day.getDate() : day.getDate());
-      getItemsSoldDay(day);
+      getItemsSoldDayAmount(day);
       $("#datepicker").val(day);
 
       const selectedElement = elements[0];
@@ -95,8 +95,8 @@ hoursLabels = ["8H", "9H", "10H", "11H", "12H", "13H", "13H", "14H", "15H", "16H
 daysLabels = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
 
 // update amount sold per hour of selected day
-function getItemsSoldDay(day, article_type = 0, cart_id = 0) {
-    var url = "index.php?controller=admin_dashboard&chart=items_sold_da_amount&day=" + day + "&article_type_id=" + article_type + "&cart_id=" + cart_id;
+function getItemsSoldDayAmount(day, article_type = 0, cart_id = 0) {
+    var url = "index.php?controller=admin_dashboard&chart=items_sold_day_amount&day=" + day + "&article_type_id=" + article_type + "&cart_id=" + cart_id;
     $.ajax({
         url: url,
         type: "GET",
@@ -127,7 +127,7 @@ function getItemsSoldDay(day, article_type = 0, cart_id = 0) {
 }
 
 // update amount sold per day of selected week
-function getItemsSoldWeek(day, article_type = 0, cart_id = 0) {
+function getItemsSoldWeekAmount(day, article_type = 0, cart_id = 0) {
     var url = "index.php?controller=admin_dashboard&chart=items_sold_week_amount&day=" + day + "&article_type_id=" + article_type + "&cart_id=" + cart_id;
     $.ajax({
         url: url,
@@ -136,7 +136,6 @@ function getItemsSoldWeek(day, article_type = 0, cart_id = 0) {
         dataType: "json",
         success: function(data) {
             dataDaysAmount = [];
-            dataDaysQuantity = [];
             data.forEach(element => {
               dataDaysAmount[element.day] = element.amount;
             });
@@ -160,10 +159,78 @@ function getItemsSoldWeek(day, article_type = 0, cart_id = 0) {
     });
 }
 
+// update quantity sold per hour of selected day
+function getItemsSoldDayQuantity(day, article_type = 0, cart_id = 0) {
+  var url = "index.php?controller=admin_dashboard&chart=items_sold_day_quantity&day=" + day + "&article_type_id=" + article_type + "&cart_id=" + cart_id;
+  $.ajax({
+      url: url,
+      type: "GET",
+      async: false,
+      dataType: "json",
+      success: function(data) {
+        dataHoursQuantity = [];
+          data.forEach(element => {
+            dataHoursQuantity[element.hour-8] = element.quantity;
+          });
+          var dataChartHours = {
+              labels: hoursLabels,
+              datasets: [{
+                label: "Nombre de ventes du jour",
+                backgroundColor: "rgba(34,139,34,0.2)",
+                borderColor: "rgba(0,100,0)",
+                borderWidth: 2,
+                hoverBackgroundColor: "rgba(34,139,34,0.2)",
+                hoverBorderColor: "rgba(0,100,0)",
+                data: dataHoursQuantity,
+              }]
+            };
+
+            updateChart(sells_hour_quantity, dataChartHours);
+      }
+      
+  });
+}
+
+// update quantity sold per day of selected week
+//TODO
+function getItemsSoldWeekQuantity(day, article_type = 0, cart_id = 0) {
+  var url = "index.php?controller=admin_dashboard&chart=items_sold_week_quantity&day=" + day + "&article_type_id=" + article_type + "&cart_id=" + cart_id;
+  $.ajax({
+      url: url,
+      type: "GET",
+      async: false,
+      dataType: "json",
+      success: function(data) {
+          dataDaysQuantity = [];
+          data.forEach(element => {
+            dataDaysQuantity[element.day] = element.quantity;
+          });
+          var dataChartDays = {
+              labels: daysLabels,
+              datasets: [{
+                  label: "Nombre de ventes de la semaine",
+                  backgroundColor: "rgba(34,139,34,0.2)",
+                  borderColor: "rgba(0,100,0)",
+                  borderWidth: 2,
+                  hoverBackgroundColor: "rgba(34,139,34,0.2)",
+                  hoverBorderColor: "rgba(0,100,0)",
+                  data: dataDaysQuantity,
+              }]
+          };
+
+          updateChart(sells_day_quantity, dataChartDays);
+          
+      }
+
+  });
+}
+
 // on element with id datepicker change, update charts
 $("#datepicker").change(function() {
-    getItemsSoldDay($(this).val());
-    getItemsSoldWeek($(this).val());
+    getItemsSoldDayAmount($(this).val());
+    getItemsSoldWeekAmount($(this).val());
+    getItemsSoldDayQuantity($(this).val());
+    getItemsSoldWeekQuantity($(this).val());
 });
 
 // on select change, update charts
@@ -171,8 +238,10 @@ $("#article_type").change(function() {
   article_type = $(this).val();
   cart_id = $("#carts").val();
 
-  getItemsSoldDay($("#datepicker").val(), article_type, cart_id);
-  getItemsSoldWeek($("#datepicker").val(), article_type, cart_id);
+  getItemsSoldDayAmount($("#datepicker").val(), article_type, cart_id);
+  getItemsSoldWeekAmount($("#datepicker").val(), article_type, cart_id);
+  getItemsSoldDayQuantity($("#datepicker").val(), article_type, cart_id);
+  getItemsSoldWeekQuantity($("#datepicker").val(), article_type, cart_id);
 });
 
 // on select change, update charts
@@ -180,8 +249,10 @@ $("#carts").change(function() {
   article_type = $("#article_type").val();
   cart_id = $(this).val();
 
-  getItemsSoldDay($("#datepicker").val(), article_type, cart_id);
-  getItemsSoldWeek($("#datepicker").val(), article_type, cart_id);
+  getItemsSoldDayAmount($("#datepicker").val(), article_type, cart_id);
+  getItemsSoldWeekAmount($("#datepicker").val(), article_type, cart_id);
+  getItemsSoldDayQuantity($("#datepicker").val(), article_type, cart_id);
+  getItemsSoldWeekQuantity($("#datepicker").val(), article_type, cart_id);
 });
 
 $(document).ready(function () {
@@ -193,6 +264,8 @@ $(document).ready(function () {
   // set input "#datepicker" to today's date
   $("#datepicker").val(date);
 
-  getItemsSoldDay(date);
-  getItemsSoldWeek(date);
+  getItemsSoldDayAmount(date);
+  getItemsSoldWeekAmount(date);
+  getItemsSoldDayQuantity(date);
+  getItemsSoldWeekQuantity(date);
 });

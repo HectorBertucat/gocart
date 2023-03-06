@@ -16,6 +16,14 @@ if(isset($_GET['chart'])) {
             // get the data from the database
             $data = $pdo->sel_items_sold_week_amount($_GET['day'], $_GET['article_type_id'], $_GET['cart_id']);
             break;
+        case 'items_sold_day_quantity':
+            // get the data from the database
+            $data = $pdo->sel_items_sold_day_quantity($_GET['day'], $_GET['article_type_id'], $_GET['cart_id']);
+            break;
+        case 'items_sold_week_quantity':
+            // get the data from the database
+            $data = $pdo->sel_items_sold_week_quantity($_GET['day'], $_GET['article_type_id'], $_GET['cart_id']);
+            break;
     }
     // return the data as json
     echo json_encode($data);
