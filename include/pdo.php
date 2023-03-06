@@ -74,49 +74,84 @@ class PdoGsb
 		return $r;
 	}
 
-	public function sel_items_sold_day($day, $article_type_id = 0, $cart_id = 0)
+	public function sel_items_sold_day_amount($day, $article_type_id, $cart_id)
 	{
 		// start is $day at 00:00:00
 		$start = date('Y-m-d H:i:s', strtotime($day));
 		// end is $day at 23:59:59
 		$end = date('Y-m-d H:i:s', strtotime($day . ' +1 day -1 second'));
 
-		$cart_filter = "";
-		if ($cart_id != 0) {
-			$cart_filter = " AND cart_id IN $cart_id";
+		if ($article_type_id != 0 || $cart_id != 0) {
+			$filter_article_type = "";
+			$filter_cart = "";
+
+			if ($article_type_id != 0) {
+				$filter_article_type = " AND i.id_item_type = '$article_type_id'";
+			}
+
+			if ($cart_id != 0) {
+				$filter_cart = " AND b.id_cart = '$cart_id'";
+			}
+
+			$r = "SELECT HOUR(b.closing_date) as hour, SUM(aib.id_item*i.price*aib.quantity) as amount
+			FROM association_item_basket aib
+			LEFT JOIN item i
+			ON aib.id_item = i.id
+			".$filter_article_type."
+			LEFT JOIN basket b
+			ON b.id = aib.id_basket
+			WHERE b.closing_date BETWEEN '$start' AND '$end'
+			".$filter_cart."
+			AND b.canceling_date IS NULL
+			GROUP BY aib.id_basket, HOUR(b.closing_date)";
+		} else {
+			$r = "SELECT HOUR(date) AS hour, SUM(amount) as amount FROM sale WHERE date BETWEEN '$start' AND '$end' GROUP BY HOUR(date)";
 		}
 
-		if ($article_type_id != 0) {
-			$r1 = "SELECT HOUR(closing_date) AS hour, SUM(amount) as amount FROM sale s WHERE cancelling_date IS NULL JOIN (SELECT * FROM association_item_basket aib WHERE aib.withdraw_date IS NULL LEFT JOIN item i ON aib.id_item = i.id WHERE i.id_item_type IN $article_type_id) aib ON s.id = aib.id_sale WHERE date BETWEEN '$start' AND '$end'".$cart_filter." GROUP BY HOUR(date)";
-		}
-
-		$r = "SELECT HOUR(date) AS hour, SUM(amount) as amount FROM sale WHERE date BETWEEN '$start' AND '$end'".$cart_filter." GROUP BY HOUR(date)";
 		$r = PdoGsb::$monPdo->query($r);
 		$r = $r->fetchAll();
 		return $r;
 	}
 
-	public function sel_items_sold_week($day, $article_type_id = 0, $cart_id = 0)
+	public function sel_items_sold_week_amount($day, $article_type_id, $cart_id)
 	{
 		// start is the monday of the week of $day at 00:00:00
 		$start = date('Y-m-d H:i:s', strtotime($day . ' -' . date('w', strtotime($day)) . ' days'));
 		// end is the sunday of the week of $day at 23:59:59
 		$end = date('Y-m-d H:i:s', strtotime($day . ' +' . (6 - date('w', strtotime($day))) . ' days +1 day -1 second'));
 
-		$cart_filter = "";
-		if ($cart_id != 0) {
-			$cart_filter = " AND cart_id IN $cart_id";
+		if ($article_type_id != 0 || $cart_id != 0) {
+			$filter_article_type = "";
+			$filter_cart = "";
+			
+			if ($article_type_id != 0) {
+				$filter_article_type = " AND i.id_item_type = '$article_type_id'";
+			}
+
+			if ($cart_id != 0) {
+				$filter_cart = " AND b.id_cart = '$cart_id'";
+			}
+
+			$r = "SELECT WEEKDAY(b.closing_date) as day, SUM(aib.id_item*i.price*aib.quantity) as amount
+			FROM association_item_basket aib
+			LEFT JOIN item i
+			ON aib.id_item = i.id
+			".$filter_article_type."
+			LEFT JOIN basket b
+			ON b.id = aib.id_basket
+			WHERE b.closing_date BETWEEN '$start' AND '$end'
+			".$filter_cart."
+			AND b.canceling_date IS NULL
+			GROUP BY aib.id_basket, WEEKDAY(b.closing_date)";
+		} else {
+			$r = "SELECT WEEKDAY(date) AS day, SUM(amount) as amount FROM sale WHERE date BETWEEN '$start' AND '$end' GROUP BY WEEKDAY(date)";
 		}
 
-		if ($article_type_id != 0) {
-
-		}
-
-		$r = "SELECT WEEKDAY(date) AS day, SUM(amount) as amount FROM sale WHERE date BETWEEN '$start' AND '$end'".$cart_filter."GROUP BY WEEKDAY(date)";
 		$r = PdoGsb::$monPdo->query($r);
 		$r = $r->fetchAll();
 		return $r;
 	}
+	
 	public function sel_basket($cart,$user)
 	{
 		$r = "SELECT * FROM basket WHERE id_cart=$cart AND id_user=$user ORDER BY id DESC LIMIT 1";
@@ -267,9 +302,4 @@ class PdoGsb
 		$rs->bindValue(2, $basket);
 		$rs->execute();
 	}
-
-	
-
-
-
 }

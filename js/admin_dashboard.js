@@ -61,36 +61,51 @@ function updateChart(chart, data) {
 
 // ------------ creation of charts ------------
 
-sells_day = new Chart('sells_day', {
+sells_day_amount= new Chart('sells_day_amount', {
   type: 'bar',
   options: sellsDayOptions,
   data: null,
 });
 
-sells_hour = new Chart('sells_hour', {
+sells_hour_amount = new Chart('sells_hour_amount', {
   type: 'bar',
   options: chartOptions,
   data: null
 });
 
-dataHours = Array(21).fill(0);
-dataDays = Array(7).fill(0);
+sells_day_quantity= new Chart('sells_day_quantity', {
+  type: 'bar',
+  options: sellsDayOptions,
+  data: null,
+});
+
+sells_hour_quantity = new Chart('sells_hour_quantity', {
+  type: 'bar',
+  options: chartOptions,
+  data: null
+});
+
+dataHoursAmount = Array(21).fill(0);
+dataDaysAmount = Array(7).fill(0);
+
+dataHoursQuantity = Array(21).fill(0);
+dataDaysQuantity = Array(7).fill(0);
 
 hoursLabels = ["8H", "9H", "10H", "11H", "12H", "13H", "13H", "14H", "15H", "16H", "17H", "18H", "19H", "20H", "21H"];
 daysLabels = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
 
 // update amount sold per hour of selected day
-function getItemsSoldDay(day) {
-    var url = "index.php?controller=admin_dashboard&chart=items_sold_day&day=" + day;
+function getItemsSoldDay(day, article_type = 0, cart_id = 0) {
+    var url = "index.php?controller=admin_dashboard&chart=items_sold_da_amount&day=" + day + "&article_type_id=" + article_type + "&cart_id=" + cart_id;
     $.ajax({
         url: url,
         type: "GET",
         async: false,
         dataType: "json",
         success: function(data) {
-            dataHours = [];
+          dataHoursAmount = [];
             data.forEach(element => {
-                dataHours[element.hour-8] = element.amount;
+              dataHoursAmount[element.hour-8] = element.amount;
             });
             var dataChartHours = {
                 labels: hoursLabels,
@@ -101,28 +116,29 @@ function getItemsSoldDay(day) {
                   borderWidth: 2,
                   hoverBackgroundColor: "rgba(34,139,34,0.2)",
                   hoverBorderColor: "rgba(0,100,0)",
-                  data: dataHours,
+                  data: dataHoursAmount,
                 }]
               };
 
-              updateChart(sells_hour, dataChartHours);
+              updateChart(sells_hour_amount, dataChartHours);
         }
         
     });
 }
 
 // update amount sold per day of selected week
-function getItemsSoldWeek(day) {
-    var url = "index.php?controller=admin_dashboard&chart=items_sold_week&day=" + day;
+function getItemsSoldWeek(day, article_type = 0, cart_id = 0) {
+    var url = "index.php?controller=admin_dashboard&chart=items_sold_week_amount&day=" + day + "&article_type_id=" + article_type + "&cart_id=" + cart_id;
     $.ajax({
         url: url,
         type: "GET",
         async: false,
         dataType: "json",
         success: function(data) {
-            dataDays = [];
+            dataDaysAmount = [];
+            dataDaysQuantity = [];
             data.forEach(element => {
-                dataDays[element.day] = element.amount;
+              dataDaysAmount[element.day] = element.amount;
             });
             var dataChartDays = {
                 labels: daysLabels,
@@ -133,11 +149,11 @@ function getItemsSoldWeek(day) {
                     borderWidth: 2,
                     hoverBackgroundColor: "rgba(34,139,34,0.2)",
                     hoverBorderColor: "rgba(0,100,0)",
-                    data: dataDays,
+                    data: dataDaysAmount,
                 }]
             };
 
-            updateChart(sells_day, dataChartDays);
+            updateChart(sells_day_amount, dataChartDays);
             
         }
 
@@ -148,6 +164,24 @@ function getItemsSoldWeek(day) {
 $("#datepicker").change(function() {
     getItemsSoldDay($(this).val());
     getItemsSoldWeek($(this).val());
+});
+
+// on select change, update charts
+$("#article_type").change(function() {
+  article_type = $(this).val();
+  cart_id = $("#carts").val();
+
+  getItemsSoldDay($("#datepicker").val(), article_type, cart_id);
+  getItemsSoldWeek($("#datepicker").val(), article_type, cart_id);
+});
+
+// on select change, update charts
+$("#carts").change(function() {
+  article_type = $("#article_type").val();
+  cart_id = $(this).val();
+
+  getItemsSoldDay($("#datepicker").val(), article_type, cart_id);
+  getItemsSoldWeek($("#datepicker").val(), article_type, cart_id);
 });
 
 $(document).ready(function () {
