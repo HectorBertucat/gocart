@@ -8,13 +8,21 @@ if(isset($_GET['chart'])) {
 
     // switch on the chart type
     switch($_GET['chart']) {
-        case 'items_sold_day':
+        case 'items_sold_day_amount':
             // get the data from the database
-            $data = $pdo->sel_items_sold_day($_GET['day']);
+            $data = $pdo->sel_items_sold_day_amount($_GET['day'], $_GET['article_type_id'], $_GET['cart_id']);
             break;
-        case 'items_sold_week':
+        case 'items_sold_week_amount':
             // get the data from the database
-            $data = $pdo->sel_items_sold_week($_GET['day']);
+            $data = $pdo->sel_items_sold_week_amount($_GET['day'], $_GET['article_type_id'], $_GET['cart_id']);
+            break;
+        case 'items_sold_day_quantity':
+            // get the data from the database
+            $data = $pdo->sel_items_sold_day_quantity($_GET['day'], $_GET['article_type_id'], $_GET['cart_id']);
+            break;
+        case 'items_sold_week_quantity':
+            // get the data from the database
+            $data = $pdo->sel_items_sold_week_quantity($_GET['day'], $_GET['article_type_id'], $_GET['cart_id']);
             break;
     }
     // return the data as json

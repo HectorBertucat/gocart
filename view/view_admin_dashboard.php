@@ -34,13 +34,31 @@ $_SESSION['id'];
 <div>
 <div class="bubble half right">
     <div class="chart-container">
-        <canvas id="sells_day"></canvas>
+        <canvas id="sells_day_amount"></canvas>
+    </div>
+    <hr>
+    <div class="chart-container">
+        <canvas id="sells_day_quantity"></canvas>
     </div>
 </div>
 
 <div class="bubble half">
     <div class="chart-container">
-        <canvas id="sells_hour"></canvas>
+        <canvas id="sells_hour_amount"></canvas>
     </div>
+    <hr>
+    <div class="chart-container">
+        <canvas id="sells_hour_quantity"></canvas>
+    </div>
+</div>
+
+<h2>Chiffre d'affaire</h2>
+
+<div class="bubble half right">
+    <p>Nombre de ventes</p>
+</div>
+
+<div class="bubble half">
+    <p>Nombre de chariots en service</p>
 </div>
 </div>
