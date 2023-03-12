@@ -24,11 +24,11 @@
     --primary: var(--color);
     --color:#5f5f5f;
     --text-secondary: #979797;
-    --details-primary: #000000;
-    --details-primary-hover:#282828;
-    --details-secondary: #ebebeb;
+    --details-primary: #4ba565;
+    --details-primary-hover:#53b970;
+    --details-secondary: #2e2e2e;
     --details-third: var(--details-primary);
-    --details-secondary-hover:#cacaca;
+    --details-secondary-hover:#434343;
     --background:#F8F8F8;
  } 
 
@@ -2076,6 +2076,16 @@ input[type="checkbox"], input[type="radio"] {
     float:left;
 }
 
+.payement_method {
+    width:40%;
+    transition: ease 0.25s;
+
+}
+
+.payement_method:hover{
+    width:42%;
+}
+
 .btn_deconnexion a {
     width: 100%;
 }
@@ -2254,7 +2264,7 @@ input[type="submit"], input[type="reset"], input[type="button"], button, .button
     background-color: var(--details-secondary);
     border-radius: 4px;
     border: 0;
-    color: var(--primary);
+    color: var(--bubble);
     cursor: pointer;
     /* Souris */
     display: inline-block;

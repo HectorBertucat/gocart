@@ -1,19 +1,26 @@
-<div class="bubble center">
-    <form method="post" action="">
-    <?php if(isset($er)){
-        if($er==1){?> <p  class="color_details center">
-        Numéro de carte inconnu
-        </p><?php }} ?>
-        <div class="row gtr-uniform">
-            <div class="col-12">
-                <input type="text" name="card_number" id="card_number" placeholder="N° de carte" required autofocus/>
-                <input type="text" name="id_cart" id="id_cart" value="1"/>
+
+<div style="margin-top:15%;" class="center">
+
+    <img style="width:600px" src="image/logo.png">
+</div>
+<div class="center">
+    <div class="bubble center" style="height:180px;width:50%;margin-left:25%;margin-top:40px">
+        <form style="margin-top:-20px" method="post" action="">
+            
+            <div class="row gtr-uniform">
+                <div class="col-12">
+                    <input type="text" name="card_number" id="card_number" onblur="this.focus()"  placeholder="N° de carte" required autofocus />
+                </div>
 
             </div>
-        </div>
-        <div style="display:none">
-            <input type="submit" name="send" class="primary" />
-        </div>
-    </form>
-</div> 
-
+            <div style="display:none">
+                <input style="width:100%" type="submit" name="send" value="Validation" />
+            </div>
+            <div style="margin-top:20px">
+            <a style="width:100%" class="button" onclick="location.href='?controller=howto'">Comment ça marche ?</a>
+            
+            </div>
+            
+        </form>
+    </div>
+</div>
