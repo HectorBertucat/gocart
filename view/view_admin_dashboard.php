@@ -54,11 +54,12 @@ $_SESSION['id'];
 
 <h2>Chiffre d'affaire</h2>
 
+<input id="datepickerTurnoverStart" type="date">
+<input id="datepickerTurnoverEnd" type="date">
+
 <div class="bubble half right">
-    <p>Nombre de ventes</p>
+    <p>CA</p>
+    <p id="turnover"></p>
 </div>
 
-<div class="bubble half">
-    <p>Nombre de chariots en service</p>
-</div>
 </div>

@@ -230,6 +230,16 @@ class PdoGsb
 		return $r;
 	}
 	
+	public function sel_turnover($start, $end) {
+		$start = date('Y-m-d H:i:s', strtotime($start));
+		$end = date('Y-m-d H:i:s', strtotime($end));
+
+		$r = "SELECT SUM(amount) as amount FROM sale WHERE date BETWEEN '$start' AND '$end'";
+		$r = PdoGsb::$monPdo->query($r);
+		$r = $r->fetchAll();
+		return $r;
+	}
+
 	public function sel_basket($cart,$user)
 	{
 		$r = "SELECT * FROM basket WHERE id_cart=$cart AND id_user=$user ORDER BY id DESC LIMIT 1";

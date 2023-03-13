@@ -192,7 +192,6 @@ function getItemsSoldDayQuantity(day, article_type = 0, cart_id = 0) {
 }
 
 // update quantity sold per day of selected week
-//TODO
 function getItemsSoldWeekQuantity(day, article_type = 0, cart_id = 0) {
   var url = "index.php?controller=admin_dashboard&chart=items_sold_week_quantity&day=" + day + "&article_type_id=" + article_type + "&cart_id=" + cart_id;
   $.ajax({
@@ -225,12 +224,37 @@ function getItemsSoldWeekQuantity(day, article_type = 0, cart_id = 0) {
   });
 }
 
+function getTurnover(start, end) {
+  var url = "index.php?controller=admin_dashboard&chart=turnover&start=" + start + "&end=" + end;
+  $.ajax({
+      url: url,
+      type: "GET",
+      async: false,
+      dataType: "json",
+      success: function(data) {
+        // round turnover to 2 decimals
+        turnover = Math.round(data[0][0] * 100) / 100;
+        console.log(turnover)
+
+        // change element with turnover id to turnover
+        $("#turnover").html(turnover + " €");
+      }});
+}
+
 // on element with id datepicker change, update charts
 $("#datepicker").change(function() {
     getItemsSoldDayAmount($(this).val());
     getItemsSoldWeekAmount($(this).val());
     getItemsSoldDayQuantity($(this).val());
     getItemsSoldWeekQuantity($(this).val());
+});
+
+$("#datepickerTurnoverStart").change(function() {
+    getTurnover($(this).val(), $("#datepickerTurnoverEnd").val());
+});
+
+$("#datepickerTurnoverEnd").change(function() {
+    getTurnover($("#datepickerTurnoverStart").val(), $(this).val());
 });
 
 // on select change, update charts
@@ -263,9 +287,12 @@ $(document).ready(function () {
 
   // set input "#datepicker" to today's date
   $("#datepicker").val(date);
+  $("#datepickerTurnoverStart").val(date);
+  $("#datepickerTurnoverEnd").val(date);
 
   getItemsSoldDayAmount(date);
   getItemsSoldWeekAmount(date);
   getItemsSoldDayQuantity(date);
   getItemsSoldWeekQuantity(date);
+  getTurnover(date, date);
 });

@@ -24,6 +24,10 @@ if(isset($_GET['chart'])) {
             // get the data from the database
             $data = $pdo->sel_items_sold_week_quantity($_GET['day'], $_GET['article_type_id'], $_GET['cart_id']);
             break;
+        case 'turnover':
+            // get the data from the database
+            $data = $pdo->sel_turnover($_GET['start'], $_GET['end']);
+            break;
     }
     // return the data as json
     echo json_encode($data);
