@@ -366,6 +366,16 @@ class PdoGsb
 		$rs->execute();
 	}
 
+	public function upd_state_cart($id,$state)
+	{
+		$req = "UPDATE cart SET state=? WHERE id=?";
+		$rs = PdoGsb::$monPdo->prepare($req);
+		$rs->bindValue(1, $state);
+		$rs->bindValue(2, $id);
+		$rs->execute();
+	}
+
+
 	public function sel_item($barcode)
 	{
 		$r = "SELECT * FROM item WHERE barcode='$barcode'";

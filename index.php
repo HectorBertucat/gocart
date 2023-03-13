@@ -12,7 +12,6 @@ switch (isset($_GET['controller'])) {
         break;
 }
 
-
 switch ($controller) {
 
     case "connection":
@@ -24,9 +23,11 @@ switch ($controller) {
             break;
 
     case "disconnection":
+        $cart = $_SESSION['cart'];
         session_destroy(); // Détruit la variable de session
         unset($_SESSION);  // Supprime les valeurs en cours d'utilisation
         session_start();   // Crée une nouvelle variable de sessio vierge
+        $_SESSION['cart'] = $cart;
         include "controller/cont_disconnection.php";
         break;
 
@@ -34,9 +35,23 @@ switch ($controller) {
         include "controller/cont_admin_dashboard.php";
         break;
 
+        case "assistance_confirmation":
+            include "controller/cont_assistance_confirmation.php";
+            break;
+            
+
+        case "error_connection_client":
+            include "controller/cont_error_connection_client.php";
+            break;
+
         case "cart_screen":
             include "controller/cont_cart_screen.php";
             break;
+
+            case "howto":
+                include "controller/cont_howto.php";
+                break;
+    
 
             case "basket_confirmation":
                 include "controller/cont_basket_confirmation.php";
