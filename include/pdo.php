@@ -244,10 +244,6 @@ class PdoGsb
 		$r = $r->fetchAll();
 		return $r;
 	}
-<<<<<<< HEAD
-
-	public function sel_basket($cart, $user)
-=======
 	
 	public function sel_turnover($start, $end) {
 		$start = date('Y-m-d H:i:s', strtotime($start));
@@ -260,7 +256,6 @@ class PdoGsb
 	}
 
 	public function sel_basket($cart,$user)
->>>>>>> 157ca0e8bfc2a3df3285ef109d92ab50fb163bc6
 	{
 		$r = "SELECT * FROM basket WHERE id_cart=$cart AND id_user=$user ORDER BY id DESC LIMIT 1";
 		$r = PdoGsb::$monPdo->query($r);
