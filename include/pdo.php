@@ -74,6 +74,20 @@ class PdoGsb
 		return $r;
 	}
 
+    public function sel_nb_carts_with_status($state) {
+            $r = "SELECT COUNT(*) FROM cart WHERE state = '$state'";
+            $r = PdoGsb::$monPdo->query($r);
+            $r = $r->fetchAll();
+            return $r;
+    }
+
+    public function sel_cart_status() {
+        $r = "SELECT id, name FROM cart_state";
+        $r = PdoGsb::$monPdo->query($r);
+        $r = $r->fetchAll();
+        return $r;
+    }
+
 	public function sel_items_sold_day_amount($day, $article_type_id, $cart_id)
 	{
 		// start is $day at 00:00:00

@@ -52,14 +52,25 @@ $_SESSION['id'];
     </div>
 </div>
 
-<h2>Chiffre d'affaire</h2>
+    <hr>
 
 <input id="datepickerTurnoverStart" type="date">
 <input id="datepickerTurnoverEnd" type="date">
 
-<div class="bubble half right">
-    <p>CA</p>
-    <p id="turnover"></p>
-</div>
+    <div>
+        <div class="bubble half right">
+            <p>CA</p>
+            <p id="turnover"></p>
+        </div>
+        <div class="bubble half"
+            <p>Nombre de chariot : </p>
+            <select name="cartStatus" id="cartStatus">
+                <?php foreach($cartStatus as $status) { ?>
+                    <option value="<?php echo $status['id'] ?>"><?php echo $status['name'] ?></option>
+                <?php } ?>
+            </select>
+            <p id="nbCarts"></p>
+        </div>
+    </div>
 
 </div>
