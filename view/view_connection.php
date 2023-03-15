@@ -1,5 +1,10 @@
-<div class="bubble center">
-    <form method="post" action="">
+
+<div style="margin-top:15%;" class="center">
+
+    <img style="width:600px" src="image/logo.png">
+</div>
+<div class="center">
+    <div class="bubble center" style="height:310px;width:50%;margin-left:25%;margin-top:40px">    <form method="post" action="">
     <?php if(isset($er)){
         if($er==1){?> <p  class="color_details center">
         Identifiant ou mot de passe incorrect
