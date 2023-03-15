@@ -22,7 +22,6 @@
 </select>
 </div>
 </div>
-<<<<<<< HEAD
 </div>
 <h2>Chiffre d'affaire</h2>
 <div>
@@ -63,9 +62,6 @@
         </div>
     </div>
 </div>
-
-
-=======
 
     <hr>
 
