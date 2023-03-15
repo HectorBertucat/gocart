@@ -6,7 +6,7 @@
 <div class="half right">
     <div class="bubble"  style="padding:10px;height:72px">
     <div style="width:70%" class="right">
-        <h5 style="margin-top:11px;margin-left:90px;font-size:19px">Arnaud Durousseau</h5>
+        <h5 style="margin-top:11px;float:right;margin-right:20px;font-size:19px"><?php echo $_SESSION['forname'] . " " . $_SESSION['name']?></h5>
 
     </div>
     <div style="width:30%">

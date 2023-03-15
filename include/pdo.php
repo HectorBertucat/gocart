@@ -317,6 +317,15 @@ class PdoGsb
 		$rs->execute();
 	}
 
+	public function upd_last_user($user,$cart)
+	{
+		$req = "UPDATE cart SET id_last_user = ? WHERE id = ?";
+		$rs = PdoGsb::$monPdo->prepare($req);
+		$rs->bindValue(1, $user);
+		$rs->bindValue(2, $cart);
+		$rs->execute();
+	}
+
 	public function upd_sell_basket($last)
 	{
 		$req = "UPDATE basket SET closing_date = NOW() WHERE id = ?";
