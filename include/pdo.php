@@ -75,6 +75,20 @@ class PdoGsb
 		return $r;
 	}
 
+    public function sel_nb_carts_with_status($state) {
+            $r = "SELECT COUNT(*) FROM cart WHERE state = '$state'";
+            $r = PdoGsb::$monPdo->query($r);
+            $r = $r->fetchAll();
+            return $r;
+    }
+
+    public function sel_cart_status() {
+        $r = "SELECT id, name FROM cart_state";
+        $r = PdoGsb::$monPdo->query($r);
+        $r = $r->fetchAll();
+        return $r;
+    }
+
 	public function sel_items_sold_day_amount($day, $article_type_id, $cart_id)
 	{
 		// start is $day at 00:00:00
@@ -230,8 +244,23 @@ class PdoGsb
 		$r = $r->fetchAll();
 		return $r;
 	}
+<<<<<<< HEAD
 
 	public function sel_basket($cart, $user)
+=======
+	
+	public function sel_turnover($start, $end) {
+		$start = date('Y-m-d H:i:s', strtotime($start));
+		$end = date('Y-m-d H:i:s', strtotime($end));
+
+		$r = "SELECT SUM(amount) as amount FROM sale WHERE date BETWEEN '$start' AND '$end'";
+		$r = PdoGsb::$monPdo->query($r);
+		$r = $r->fetchAll();
+		return $r;
+	}
+
+	public function sel_basket($cart,$user)
+>>>>>>> 157ca0e8bfc2a3df3285ef109d92ab50fb163bc6
 	{
 		$r = "SELECT * FROM basket WHERE id_cart=$cart AND id_user=$user ORDER BY id DESC LIMIT 1";
 		$r = PdoGsb::$monPdo->query($r);

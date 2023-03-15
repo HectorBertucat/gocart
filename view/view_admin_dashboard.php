@@ -22,6 +22,7 @@
 </select>
 </div>
 </div>
+<<<<<<< HEAD
 </div>
 <h2>Chiffre d'affaire</h2>
 <div>
@@ -64,3 +65,28 @@
 </div>
 
 
+=======
+
+    <hr>
+
+<input id="datepickerTurnoverStart" type="date">
+<input id="datepickerTurnoverEnd" type="date">
+
+    <div>
+        <div class="bubble half right">
+            <p>CA</p>
+            <p id="turnover"></p>
+        </div>
+        <div class="bubble half"
+            <p>Nombre de chariot : </p>
+            <select name="cartStatus" id="cartStatus">
+                <?php foreach($cartStatus as $status) { ?>
+                    <option value="<?php echo $status['id'] ?>"><?php echo $status['name'] ?></option>
+                <?php } ?>
+            </select>
+            <p id="nbCarts"></p>
+        </div>
+    </div>
+
+</div>
+>>>>>>> 157ca0e8bfc2a3df3285ef109d92ab50fb163bc6

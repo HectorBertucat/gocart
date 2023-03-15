@@ -24,11 +24,21 @@ if(isset($_GET['chart'])) {
             // get the data from the database
             $data = $pdo->sel_items_sold_week_quantity($_GET['day'], $_GET['article_type_id'], $_GET['cart_id']);
             break;
+        case 'turnover':
+            // get the data from the database
+            $data = $pdo->sel_turnover($_GET['start'], $_GET['end']);
+            break;
+        case 'nb_carts_with_status':
+            // get the data from the database
+            $data = $pdo->sel_nb_carts_with_status($_GET['status_id']);
+            break;
     }
     // return the data as json
     echo json_encode($data);
 } else {
     $article_type = $pdo->sel_article_type();
+    $cartStatus = $pdo->sel_cart_status();
     $carts = $pdo->sel_carts();
+    $active_carts = $pdo->sel_nb_carts_with_status(3);
     $view = "view_admin_dashboard.php";
 }
