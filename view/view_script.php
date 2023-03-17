@@ -4,6 +4,7 @@
 <script src="js/popup.js"></script>
 <script src="node_modules/chart.js/dist/chart.umd.js"></script>
 <script src="js/admin_dashboard.js"></script>
+<script src="js/assistance.js"></script>
 
 <!--<script> 
 	$(document).bind("contextmenu", function() {
