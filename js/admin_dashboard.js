@@ -386,7 +386,7 @@ $(document).ready(function () {
     updateAll();
 });
 
-var autoRefresh = window.setInterval(function(){
+var autoRefreshData = window.setInterval(function(){
     // update all charts every 10 seconds
     updateAll();
 }, 10000);
