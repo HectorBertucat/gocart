@@ -6,7 +6,7 @@
 <h5>En attente d'assistance</h5>
 
 <form method="post" action="">
-    <input type="password" name="password">
+    <input type="password" name="password" onblur="this.focus()" autofocus required>
 </form>
 
 </div>

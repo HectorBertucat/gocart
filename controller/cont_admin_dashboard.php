@@ -3,6 +3,11 @@
 require_once("include/pdo.php");
 $pdo = PdoGsb::getPdoGsb();
 
+if(!isset($_SESSION['user']) || $_SESSION['id_user_type'] != 3) {
+    header("Location: ?controller=deconnection");
+    exit();
+}
+
 // if chart is set, then not return a view but return the data for the chart
 if(isset($_GET['chart'])) {
 

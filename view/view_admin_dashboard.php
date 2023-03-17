@@ -59,7 +59,7 @@
             <select name="carts" id="carts">
                 <option value="0">Tous les chariots</option>
                 <?php foreach ($carts as $cart) { ?>
-                    <option value="<?php echo $cart['id'] ?>"> Chariot n°<?php echo $cart['id'] ?></option>
+                    <option value="<?php echo $cart['id'] ?>"> Chariot n°<?php echo $cart['numbersa'] ?></option>
                 <?php } ?>
             </select>
         </div>
