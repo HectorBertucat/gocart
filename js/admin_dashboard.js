@@ -236,7 +236,7 @@ function getTurnover(start, end) {
         turnover = Math.round(data[0][0] * 100) / 100;
 
         // change element with turnover id to turnover
-        $("#turnover").html(turnover + " €");
+        $("#turnover").html(turnover + "€");
       }});
 }
 

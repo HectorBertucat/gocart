@@ -15,8 +15,9 @@
 				case "admin_dashboard":
 
 				?>
-					<span style="float:right;margin-right:20px" onclick="location.href='?controller=deconnexion'" class="clickable color_details icon solid fa-power-off"></span>
-					
+				<div class="center">
+					<span onclick="location.href='?controller=deconnexion'" class="clickable color_details icon solid fa-power-off"></span>
+				</div>
 				<?php
 					break;
 
