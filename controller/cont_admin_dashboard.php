@@ -3,7 +3,7 @@ require_once("include/pdo.php");
 $pdo = PdoGsb::getPdoGsb();
 
 if (!isset($_SESSION['email']) || $_SESSION['id_user_type'] != 3) {
-    header("Location: ?controller=deconnection");
+    header("Location: ?controller=disconnection");
     exit();
 }
 

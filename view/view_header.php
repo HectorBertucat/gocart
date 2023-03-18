@@ -7,7 +7,7 @@
 				case "tablet_screen":
 		?>
 					<div class="center">
-						<span onclick="location.href='?controller=deconnexion'" class="clickable color_details icon solid fa-power-off"></span>
+						<span onclick="location.href='?controller=disconnection'" class="clickable color_details icon solid fa-power-off"></span>
 					</div>
 		<?php
 					break;

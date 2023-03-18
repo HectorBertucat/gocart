@@ -20,7 +20,16 @@ if (isset($_POST['send'])) {
                 $_SESSION['card_number'] = $user['card_number'];
                 $_SESSION['id_user_type'] = $user['id_user_type'];
                 $_SESSION['id'] = $user['id'];
-                header("Location: ?controller=admin_dashboard");
+
+                switch($_SESSION['id_user_type']){
+                    case 3:
+                        header("Location: ?controller=admin_dashboard");
+                        exit();
+                        break;
+                    case 2:
+                        header("Location: ?controller=tablet_screen");
+                        break;
+                }
             } else {
                 $er = 1;
             }

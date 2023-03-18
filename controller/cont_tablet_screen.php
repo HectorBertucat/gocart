@@ -2,6 +2,11 @@
 require_once("include/pdo.php");
 $pdo = PdoGsb::getPdoGsb();
 
+if (!isset($_SESSION['email']) || $_SESSION['id_user_type'] < 2) {
+    header("Location: ?controller=disconnection");
+    exit();
+}
+
 if (isset($_GET['carts'])) {
     switch ($_GET['carts']) {
         case 'list':
