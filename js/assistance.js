@@ -9,18 +9,29 @@ function updateCartList() {
             dataType: "json",
             success: function(data) {
                 $("#cart_list").empty();
+                let nbCarts = 0;
+
+                // structure of div to add
+                // <div id="cart_1" style="position:absolute;margin-left:" + cart['x'] + "%;margin-top:" + cart['y'] + "%">
+                //    <div className="cart_dot"></div>
+                // </div>
                 if (data) {
                     $.each(data, function(index, cart) {
-                        var div = $("<div/>", {
-                            "class": "tab_bubble clickable"
-                        });
-                        var h5 = $("<h5/>", {
-                            text: "Chariot n°" + cart['number']
-                        });
-                        div.append(h5);
+                        nbCarts++;
 
-                        // empty the div with id "cart_list"
+                        var div = document.createElement("div");
+                        div.id = "cart_" + cart['id'];
+                        div.style.position = "absolute";
+                        div.style.marginLeft = cart['x'] + "%";
+                        div.style.marginTop = cart['y'] + "%";
+
+                        var divDot = document.createElement("div");
+                        divDot.className = "cart_dot";
+
+                        div.appendChild(divDot);
+
                         $("#cart_list").append(div);
+                        $("#nb_carts").text(nbCarts);
                     });
                 }
             }});
