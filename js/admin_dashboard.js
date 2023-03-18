@@ -105,7 +105,7 @@ var emptyHours = Array(21).fill(0);
 var emptyDays = Array(7).fill(0);
 
 // ------------ data for labels ------------
-hoursLabels = ["8H", "9H", "10H", "11H", "12H", "13H", "13H", "14H", "15H", "16H", "17H", "18H", "19H", "20H", "21H"];
+hoursLabels = ["8h", "9h", "10h", "11h", "12h", "13h", "13h", "14h", "15h", "16h", "17h", "18h", "19h", "20h", "21h"];
 daysLabels = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
 
 // ------------ ajax requests ------------
@@ -129,7 +129,7 @@ function getItemsSoldDayAmount(day, article_type = 0, cart_id = 0) {
             var dataChartHours = {
                 labels: hoursLabels,
                 datasets: [{
-                    label: "Ventes du jour",
+                    label: "Montant des ventes par heure",
                     backgroundColor: "rgba(34,139,34,0.2)",
                     borderColor: "rgba(0,100,0)",
                     borderWidth: 2,
@@ -166,7 +166,7 @@ function getItemsSoldWeekAmount(day, article_type = 0, cart_id = 0) {
             var dataChartDays = {
                 labels: daysLabels,
                 datasets: [{
-                    label: "Ventes de la semaine",
+                    label: "Montant des ventes par jour",
                     backgroundColor: "rgba(34,139,34,0.2)",
                     borderColor: "rgba(0,100,0)",
                     borderWidth: 2,
@@ -209,7 +209,7 @@ function getItemsSoldDayQuantity(day, article_type = 0, cart_id = 0) {
           var dataChartHours = {
               labels: hoursLabels,
               datasets: [{
-                label: "Nombre de ventes du jour",
+                label: "Nombre de ventes par heure",
                 backgroundColor: "rgba(34,139,34,0.2)",
                 borderColor: "rgba(0,100,0)",
                 borderWidth: 2,
@@ -252,7 +252,7 @@ function getItemsSoldWeekQuantity(day, article_type = 0, cart_id = 0) {
           var dataChartDays = {
               labels: daysLabels,
               datasets: [{
-                  label: "Nombre de ventes de la semaine",
+                  label: "Nombre de ventes par jour",
                   backgroundColor: "rgba(34,139,34,0.2)",
                   borderColor: "rgba(0,100,0)",
                   borderWidth: 2,

@@ -30,4 +30,4 @@ function updateCartList() {
 var autoRefreshCarts = window.setInterval(function(){
     // update all charts every 10 seconds
     updateCartList();
-}, 5000);
+}, 10000);
