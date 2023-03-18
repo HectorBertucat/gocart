@@ -17,26 +17,37 @@ function updateCartList() {
                 // </div>
                 if (data) {
                     $.each(data, function(index, cart) {
-                        nbCarts++;
+                        if (cart['state'] == 3 || cart['state'] == 4) {
+                            let cart_class = "";
+                            if (cart['state'] == 3) {
+                                cart_class = "cart_dot_working";
+                            } else {
+                                cart_class = "cart_dot_assistance";
+                            }
+                            nbCarts++;
 
-                        var div = document.createElement("div");
-                        div.id = "cart_" + cart['id'];
-                        div.style.position = "absolute";
-                        div.style.marginLeft = cart['x'] + "%";
-                        div.style.marginTop = cart['y'] + "%";
+                            var div = document.createElement("div");
+                            div.id = "cart_" + cart['id'];
+                            div.style.position = "absolute";
+                            div.style.marginLeft = cart['x'] + "%";
+                            div.style.marginTop = cart['y'] + "%";
 
-                        var divDot = document.createElement("div");
-                        divDot.className = "cart_dot";
+                            var divDot = document.createElement("div");
+                            divDot.className = cart_class;
 
-                        div.appendChild(divDot);
+                            div.appendChild(divDot);
 
-                        $("#cart_list").append(div);
-                        $("#nb_carts").text(nbCarts);
+                            $("#cart_list").append(div);
+                            $("#nb_carts").text(nbCarts);
+                        }
                     });
                 }
             }});
     }
 }
+
+// on page load, call updateCartList() function
+updateCartList();
 
 var autoRefreshCarts = window.setInterval(function(){
     // update all charts every 10 seconds

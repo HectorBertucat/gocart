@@ -10,7 +10,7 @@ if (!isset($_SESSION['email']) || $_SESSION['id_user_type'] < 2) {
 if (isset($_GET['carts'])) {
     switch ($_GET['carts']) {
         case 'list':
-            $data = $pdo->sel_carts_state(4);
+            $data = $pdo->sel_carts();
             break;
     }
     echo json_encode($data);

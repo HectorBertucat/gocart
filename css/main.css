@@ -2627,8 +2627,15 @@ input[type="radio"]+label:before {
     height: 600px;
 }
 
-.cart_dot {
+.cart_dot_working {
     background-color: green;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.cart_dot_assistance {
+    background-color: #FFB800FF;
     width: 20px;
     height: 20px;
     border-radius: 50%;
