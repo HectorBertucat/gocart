@@ -12,10 +12,10 @@ function updateCartList() {
                 if (data) {
                     $.each(data, function(index, cart) {
                         var div = $("<div/>", {
-                            "class": "tab_bubble"
+                            "class": "tab_bubble clickable"
                         });
                         var h5 = $("<h5/>", {
-                            text: "Chariot n°" + cart['id']
+                            text: "Chariot n°" + cart['number']
                         });
                         div.append(h5);
 

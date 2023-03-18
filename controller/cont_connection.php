@@ -4,8 +4,8 @@ $pdo = PdoGsb::getPdoGsb();
 
 if (isset($_POST['send'])) {
     $er = 1;
-
     $emails = $pdo->sel_emails();
+
     foreach ($emails as $email) { //recherche de l'identifiant dans la base de données
 
         if ($email['email'] == $_POST['email']) {
@@ -27,6 +27,5 @@ if (isset($_POST['send'])) {
         }
     }
 }
-
 
 $view = "view_connection.php";

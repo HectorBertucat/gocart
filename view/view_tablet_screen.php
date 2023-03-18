@@ -1,11 +1,14 @@
-   <h2 class="center">Demandes d'assistances en cours</h2>
-   <div id="cart_list">
-       <?php
-        foreach ($leslignes as $ligne) { ?>
-           <div class="tab_bubble">
-               <h5>Chariot n°<?php echo $ligne['number'] ?></h5>
-           </div>
-       <?php
+<h2 class="center">Demandes d'assistances en cours (<span class="color_details"><?php echo count($leslignes) ?></span>)</h2>
+<div>
+    <div id="cart_list" class="cart_list">
+        <?php
+        foreach ($leslignes as $ligne) {
+        ?>
+            <div style="position:absolute;margin-left:<?php echo $ligne['x'] ?>%;margin-top:<?php echo $ligne['y'] ?>%">
+                <div class="cart_dot"></div>
+            </div>
+        <?php
         }
         ?>
-   </div>
+    </div>
+</div>

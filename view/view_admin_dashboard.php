@@ -3,18 +3,15 @@
     <div class="half right">
         <div class="bubble">
             <div class="row gtr-uniform">
-
                 <div style="margin-top:-17px;" class="col-6">
                     <input id="datepickerTurnoverStart" type="date">
                 </div>
                 <div style="margin-top:-17px;" class="col-6">
-
                     <input id="datepickerTurnoverEnd" type="date">
                 </div>
             </div>
             <h2 style="margin-bottom:10px;margin-top:25px">Chiffre d'affaire</h2>
             <h2 class="color_details" style="margin-bottom:0;font-size:36px" id="turnover"></h2>
-
         </div>
     </div>
     <div class="half">
@@ -24,12 +21,8 @@
                     <option value="<?php echo $status['id'] ?>"><?php echo $status['name'] ?></option>
                 <?php } ?>
             </select>
-
             <h2 style="margin-bottom:10px;margin-top:25px">Chariots</h2>
-
-
             <h2 class="color_details" style="margin-bottom:0;font-size:36px" id="nbCarts"></h2>
-
         </div>
     </div>
 

@@ -9,31 +9,22 @@
     <noscript>
         <link rel="stylesheet" href="css/noscript.css" />
     </noscript>
-
     <link rel="stylesheet" href="css/main.css" />
 </head>
 
 <body>
-
-
-
     <div id="wrapper">
         <div id="main">
             <div class="inner">
-
                 <?php
-
                 include "view/view_header.php";
-
                 include "view/" . $view;
                 ?>
             </div>
         </div>
     </div>
-    <div id="scrollUp">
-        <a href="#top"><img style="width:50px;" src="image/to-top.png" /></a>
-    </div>
 </body>
+
 <?php
 include "view/view_script.php";
 ?>

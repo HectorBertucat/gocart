@@ -1,5 +1,4 @@
 <?php
-
 require_once("include/pdo.php");
 $pdo = PdoGsb::getPdoGsb();
 
@@ -12,5 +11,5 @@ if (isset($_GET['carts'])) {
     echo json_encode($data);
 } else {
     $leslignes = $pdo->sel_carts_state(4);
-    $view="view_tablet_screen.php";
+    $view = "view_tablet_screen.php";
 }

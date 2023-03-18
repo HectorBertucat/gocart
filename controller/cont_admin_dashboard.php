@@ -1,18 +1,18 @@
 <?php
-
 require_once("include/pdo.php");
 $pdo = PdoGsb::getPdoGsb();
 
-if(!isset($_SESSION['email']) || $_SESSION['id_user_type'] != 3) {
+if (!isset($_SESSION['email']) || $_SESSION['id_user_type'] != 3) {
     header("Location: ?controller=deconnection");
     exit();
 }
 
 // if chart is set, then not return a view but return the data for the chart
-if(isset($_GET['chart'])) {
+if (isset($_GET['chart'])) {
 
     // switch on the chart type
-    switch($_GET['chart']) {
+    switch ($_GET['chart']) {
+
         case 'items_sold_day_amount':
             // get the data from the database
             $data = $pdo->sel_items_sold_day_amount($_GET['day'], $_GET['article_type_id'], $_GET['cart_id']);
