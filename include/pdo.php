@@ -243,7 +243,9 @@ class PdoGsb
 	
 	public function sel_turnover($start, $end) {
 		$start = date('Y-m-d H:i:s', strtotime($start));
-		$end = date('Y-m-d H:i:s', strtotime($end));
+
+        // end is $end at 23:59:59
+        $end = date('Y-m-d H:i:s', strtotime($end . ' +1 day -1 second'));
 
 		$r = "SELECT SUM(amount) as amount FROM sale WHERE date BETWEEN '$start' AND '$end'";
 		$r = PdoGsb::$monPdo->query($r);
